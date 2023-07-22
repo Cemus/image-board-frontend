@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import Topic from "./components/Topic";
+import Thread from "./components/Thread";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/topic/:id" element={<Topic />} />
+      <Route path="/thread/:id" element={<Thread />} />
     </Routes>
   );
 }
