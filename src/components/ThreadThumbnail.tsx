@@ -12,17 +12,21 @@ export default function ThreadThumbnail({
   subject,
 }: ThreadThumbnailProps) {
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-center gap-1 max-w-full">
       <Link to={`/thread/${id}`}>
         <img
-          className="max-h-40 cursor-pointer"
+          className="w-full cursor-pointer rounded-sm"
           loading="lazy"
           src={img}
           alt={`thumbnail-${id}`}
         />
       </Link>
       {/*       <p>{`R : ${responseCount} | I : ${imageCount}`}</p> */}
-      <p className=" w-1/4 h-40 line-clamp-3">{subject}</p>
+      <div className=" w-3/4 overflow-hidden">
+        <p className=" text-overflow-ellipsis line-clamp-3 break-words text-center">
+          {subject}
+        </p>
+      </div>
     </div>
   );
 }

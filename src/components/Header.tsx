@@ -1,13 +1,17 @@
+import HorizontalRule from "./HorizontalRule";
 import bannerImage from "../assets/images/banner/banner.png";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <>
-      <img className="m-auto mt-4" src={bannerImage} alt="banner" />
+      <Link to={`/`}>
+        <img className="m-auto mt-4" src={bannerImage} alt="banner" />
+      </Link>
       <h1 className="flex justify-center text-2xl font-semi-bold">
         Image Board !
       </h1>
-      <hr className="bg-gray-200 h-0.5 w-3/4 mx-auto" />
+      <HorizontalRule />
     </>
   );
 }

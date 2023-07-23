@@ -14,11 +14,8 @@ export default function NewThread() {
           className=" m-auto p-1 rounded-md hover:bg-slate-500"
           onClick={handleClickNewThread}
         >
-          Start a {""}
-          <span className="text-lg underline underline-offset-2">
-            New Thread
-          </span>
-          !
+          Post a {""}
+          <span className="text-lg underline underline-offset-2">Reply</span>!
         </button>
       )}
       {startThreadToggle && <NewThreadForm />}

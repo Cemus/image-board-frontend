@@ -9,7 +9,7 @@ export default function Board() {
   }
   function rdmString() {
     let finalString: string = "";
-    const rdmNumber: number = Math.floor(Math.random() * (250 - 4) + 4);
+    const rdmNumber: number = Math.floor(Math.random() * (100 - 4) + 4);
     for (let i = 0; i < rdmNumber; i++) {
       finalString = finalString + "a";
     }
@@ -17,6 +17,36 @@ export default function Board() {
   }
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center m-4">
+      <ThreadThumbnail
+        id={0}
+        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
+        subject={rdmString()}
+      />
+      <ThreadThumbnail
+        id={0}
+        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
+        subject={rdmString()}
+      />
+      <ThreadThumbnail
+        id={0}
+        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
+        subject={rdmString()}
+      />
+      <ThreadThumbnail
+        id={0}
+        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
+        subject={rdmString()}
+      />
+      <ThreadThumbnail
+        id={0}
+        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
+        subject={rdmString()}
+      />
+      <ThreadThumbnail
+        id={0}
+        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
+        subject={rdmString()}
+      />
       <ThreadThumbnail
         id={0}
         img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
