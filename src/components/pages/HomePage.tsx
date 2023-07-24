@@ -1,6 +1,6 @@
-import Header from "./Header";
-import NewThread from "./NewThread";
-import Board from "./Board";
+import Header from "../Header";
+import NewThread from "../post/NewThreadButton";
+import Board from "../Board";
 
 export default function Home() {
   window.scrollTo({ top: 0 });

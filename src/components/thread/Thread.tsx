@@ -1,0 +1,20 @@
+import Op from "./Op";
+import Reply from "./Reply";
+export default function Thread() {
+  return (
+    <div className="flex flex-col items-start">
+      <Op comment={"blablabblablablablablablablablalabla"} />
+      <Reply
+        hasImage={true}
+        comment={
+          "blablabblablabblablablablablablablablalablablablabblablablablablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalabla"
+        }
+      />
+      <Reply
+        hasImage={false}
+        comment={"blablabblablablablablablablablalabla"}
+      />
+      <Reply hasImage={true} comment={"blablabblablablablablablablablalabla"} />
+    </div>
+  );
+}

@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import ThreadPage from "./components/ThreadPage";
+import HomePage from "./components/pages/HomePage";
+import ThreadPage from "./components/pages/ThreadPage";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/thread/:id" element={<ThreadPage />} />
     </Routes>
   );

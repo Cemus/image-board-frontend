@@ -1,8 +1,8 @@
 import { useState } from "react";
 import NewThreadForm from "./NewThreadForm";
-import HorizontalRule from "./HorizontalRule";
+import HorizontalRule from "../HorizontalRule";
 
-export default function NewThread() {
+export default function ReplyButton() {
   const [startThreadToggle, setStartThreadToggle] = useState(false);
   function handleClickNewThread() {
     setStartThreadToggle((prevStartThreadToggle) => !prevStartThreadToggle);
