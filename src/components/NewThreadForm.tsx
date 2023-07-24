@@ -4,7 +4,7 @@ export default function NewThreadForm() {
       <div>
         <label htmlFor="name">Name</label>
         <input
-          className="border border-black w-full text-black"
+          className="p-1 border border-black w-full text-black"
           type="text"
           id="name"
           name="name"
@@ -15,16 +15,18 @@ export default function NewThreadForm() {
       <div className="col-span-2">
         <label htmlFor="subject">Subject</label>
         <input
-          className="border border-black w-full text-black"
+          className="p-1 border border-black w-full text-black"
           type="text"
           id="subject"
           name="subject"
         />
       </div>
       <div className="col-span-2">
-        <label htmlFor="comment">Comment</label>
+        <label className="" htmlFor="comment">
+          Comment
+        </label>
         <textarea
-          className="border border-black h-16 w-full text-black"
+          className="p-1 border border-black h-16 w-full text-black"
           id="comment"
           name="comment"
         />
@@ -32,7 +34,7 @@ export default function NewThreadForm() {
       <div className="col-span-2">
         <label htmlFor="file">Add a file ?</label>
         <input
-          className="w-full text-black"
+          className="w-full text-white file:border-2  file:text-white file:cursor-pointer file:bg-indigo-500 file:rounded-md file:border-white file:hover:bg-indigo-600  file:font-semibold file:py-1 file:px-2 "
           type="file"
           id="fileInput"
           name="file"

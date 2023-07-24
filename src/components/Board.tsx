@@ -16,7 +16,7 @@ export default function Board() {
     return finalString;
   }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center m-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center bg-gray-900">
       <ThreadThumbnail
         id={0}
         img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}

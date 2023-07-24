@@ -12,7 +12,7 @@ export default function ThreadThumbnail({
   subject,
 }: ThreadThumbnailProps) {
   return (
-    <div className="flex flex-col items-center gap-1 max-w-full">
+    <div className="flex flex-col items-center gap-1 max-w-full p-4">
       <Link to={`/thread/${id}`}>
         <img
           className="w-full cursor-pointer rounded-sm"
