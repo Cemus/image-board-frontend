@@ -2,12 +2,12 @@ export default function NewThreadForm() {
   return (
     <form className="grid grid-cols-2 grid-rows gap-4 w-1/2 self-center ">
       <div>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="opName">Name</label>
         <input
           className="p-1 border border-black w-full text-black"
           type="text"
-          id="name"
-          name="name"
+          id="opName"
+          name="opName"
           placeholder="Anonymous"
         />
       </div>
@@ -16,6 +16,7 @@ export default function NewThreadForm() {
         <label htmlFor="subject">Subject</label>
         <input
           className="p-1 border border-black w-full text-black"
+          maxLength={128}
           type="text"
           id="subject"
           name="subject"

@@ -8,7 +8,9 @@ export default function Home() {
     <div className="flex flex-col w-full h-screen gap-4 bg-gray-900 text-white">
       <Header />
       <NewThread />
-      <Board />
+      <div className="flex-grow">
+        <Board />
+      </div>
     </div>
   );
 }

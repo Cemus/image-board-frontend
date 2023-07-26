@@ -1,77 +1,46 @@
+import { useEffect, useState } from "react";
 import ThreadThumbnail from "./ThreadThumbnail";
 
+interface ThreadProps {
+  _id: string;
+  subject: string;
+  comment: string;
+  image: string;
+}
+
 export default function Board() {
-  function rdmImage() {
-    return Math.floor(Math.random() * (999 - 1) + 1);
-  }
-  function rdmSize() {
-    return Math.floor(Math.random() * (500 - 200) + 200);
-  }
-  function rdmString() {
-    let finalString: string = "";
-    const rdmNumber: number = Math.floor(Math.random() * (100 - 4) + 4);
-    for (let i = 0; i < rdmNumber; i++) {
-      finalString = finalString + "a";
-    }
-    return finalString;
-  }
+  const [threads, setThreads] = useState<ThreadProps[] | null>(null);
+
+  useEffect(() => {
+    const fetchThreads = async () => {
+      const response = await fetch("/api/threads");
+      const json = await response.json();
+
+      if (response.ok) {
+        setThreads(json);
+      }
+    };
+    fetchThreads();
+  }, []);
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center bg-gray-900">
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-      <ThreadThumbnail
-        id={0}
-        img={`https://picsum.photos/${rdmSize()}/${rdmSize()}?${rdmImage()}`}
-        subject={rdmString()}
-      />
-    </div>
+    <>
+      {threads ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center bg-gray-900">
+          {threads.map((thread) => (
+            <ThreadThumbnail
+              key={thread._id}
+              id={thread._id}
+              subject={thread.subject}
+              comment={thread.comment}
+              image={thread.image}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full h-full flex justify-center items-center">
+          <p className=" text-center">No threads!</p>
+        </div>
+      )}
+    </>
   );
 }
