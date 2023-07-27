@@ -1,36 +1,29 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import Op from "./Op";
 import Reply from "./Reply";
 
 interface ThreadProps {
-  _id: string;
-  opName: string;
-  subject: string;
-  comment: string;
-  image: string;
-  createdAt: string;
+  thread: {
+    _id: string;
+    opName: string;
+    subject: string;
+    comment: string;
+    image: string;
+    replies: Array<{
+      _id: string;
+      name: string;
+      comment: string;
+      image: string;
+      createdAt: string;
+    }>;
+    createdAt: string;
+  } | null;
 }
-export default function Thread() {
-  const [thread, setThread] = useState<ThreadProps | null>(null);
-  const { id } = useParams();
 
-  useEffect(() => {
-    const fetchThread = async () => {
-      const response = await fetch(`/api/threads/${id}`);
-      const json = await response.json();
-
-      if (response.ok) {
-        setThread(json);
-      }
-    };
-    fetchThread();
-  }, []);
-
+export default function Thread({ thread }: ThreadProps) {
   return (
     <>
       {thread ? (
-        <div className="flex flex-col items-start">
+        <div className="flex-col items-start self-start w-full h-full">
           <Op
             id={thread._id}
             opName={thread.opName}
@@ -39,24 +32,20 @@ export default function Thread() {
             image={thread.image}
             date={thread.createdAt}
           />
-          <Reply
-            hasImage={true}
-            comment={
-              "blablabblablabblablablablablablablablalablablablabblablablablablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablabblablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablabblablablablablablablablalablablablablablablablablablalabla"
-            }
-          />
-          <Reply
-            hasImage={false}
-            comment={"blablabblablablablablablablablalabla"}
-          />
-          <Reply
-            hasImage={true}
-            comment={"blablabblablablablablablablablalabla"}
-          />
+          {thread.replies.map((reply) => (
+            <Reply
+              key={reply._id}
+              id={reply._id}
+              name={reply.name}
+              comment={reply.comment}
+              image={reply.image}
+              date={reply.createdAt}
+            />
+          ))}
         </div>
       ) : (
-        <div>
-          <p>Couldn't charge the page...</p>
+        <div className="flex justify-center items-center w-full h-10 mt-[-20%]">
+          <div className=" w-12 h-12 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
         </div>
       )}
     </>

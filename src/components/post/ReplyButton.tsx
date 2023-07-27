@@ -1,8 +1,12 @@
 import { useState } from "react";
-import NewThreadForm from "./NewThreadForm";
 import HorizontalRule from "../HorizontalRule";
+import ReplyForm from "./ReplyForm";
 
-export default function ReplyButton() {
+interface ComponentReplyForm {
+  fetchThread: () => Promise<void>;
+}
+
+export default function ReplyButton({ fetchThread }: ComponentReplyForm) {
   const [startThreadToggle, setStartThreadToggle] = useState(false);
   function handleClickNewThread() {
     setStartThreadToggle((prevStartThreadToggle) => !prevStartThreadToggle);
@@ -18,7 +22,7 @@ export default function ReplyButton() {
           <span className="text-lg underline underline-offset-2">Reply</span>!
         </button>
       )}
-      {startThreadToggle && <NewThreadForm />}
+      {startThreadToggle && <ReplyForm fetchThread={fetchThread} />}
       <HorizontalRule />
     </>
   );
