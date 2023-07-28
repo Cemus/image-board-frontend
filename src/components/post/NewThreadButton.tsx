@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NewThreadForm from "./NewThreadForm";
+import ThreadForm from "./ThreadForm";
 import HorizontalRule from "../HorizontalRule";
 
 export default function NewThreadButton() {
@@ -21,7 +21,7 @@ export default function NewThreadButton() {
           !
         </button>
       )}
-      {startThreadToggle && <NewThreadForm />}
+      {startThreadToggle && <ThreadForm />}
       <HorizontalRule />
     </>
   );

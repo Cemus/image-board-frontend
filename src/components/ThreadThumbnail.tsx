@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import config from "../../env";
 
 interface ThreadProps {
   id: string;
@@ -13,23 +14,26 @@ export default function ThreadThumbnail({
   comment,
   image,
 }: ThreadProps) {
-  console.log(image);
+  const navigate = useNavigate();
+  function handleClick() {
+    navigate(`/thread/${id}`);
+  }
+  const imageUrl = image.substring(7, image.length);
   return (
-    <div className="flex flex-col items-center gap-1 max-w-full p-4">
-      <Link to={`/thread/${id}`}>
-        <img
-          className="w-full cursor-pointer rounded-sm"
-          loading="lazy"
-          src={image}
-          alt={`thumbnail-${id}`}
-        />
-      </Link>
-      {/*       <p>{`R : ${responseCount} | I : ${imageCount}`}</p> */}
+    <div className="flex flex-col items-center gap-1 p-2">
+      <img
+        onClick={handleClick}
+        className="max-w-[80%] max-h-[80%]  cursor-pointer rounded-sm"
+        loading="lazy"
+        src={`${config.apiBaseUrl}/${imageUrl}`}
+        alt={`thumbnail-${id}`}
+      />
+
       <div className=" w-3/4 overflow-hidden">
-        <p className=" text-overflow-ellipsis line-clamp-3 break-words text-center font-bold">
+        <h3 className=" text-overflow-ellipsis line-clamp-3 break-words text-center font-bold text-lg">
           {subject}
-        </p>
-        <p className=" text-overflow-ellipsis line-clamp-3 break-words text-center">
+        </h3>
+        <p className=" text-overflow-ellipsis line-clamp-3 break-words text-center text-md">
           {comment}
         </p>
       </div>

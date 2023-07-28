@@ -10,7 +10,7 @@ interface ThreadProps {
 
 export default function Board() {
   const [threads, setThreads] = useState<ThreadProps[] | null>(null);
-
+  console.log(threads);
   useEffect(() => {
     const fetchThreads = async () => {
       const response = await fetch("/api/threads");
@@ -24,8 +24,8 @@ export default function Board() {
   }, []);
   return (
     <>
-      {threads ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center bg-gray-900">
+      {threads && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center bg-gray-900">
           {threads.map((thread) => (
             <ThreadThumbnail
               key={thread._id}
@@ -36,11 +36,13 @@ export default function Board() {
             />
           ))}
         </div>
-      ) : (
-        <div className="w-full h-full flex justify-center items-center">
-          <p className=" text-center">No threads!</p>
-        </div>
       )}
+      {!threads ||
+        (threads.length === 0 && (
+          <div className="w-full h-full flex justify-center items-center">
+            <p className=" text-center">No threads!</p>
+          </div>
+        ))}
     </>
   );
 }

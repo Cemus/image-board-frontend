@@ -1,26 +1,18 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
-import { useParams } from "react-router-dom";
-
-interface ReplyFormProps {
-  name: string;
+interface ThreadFormProps {
+  opName: string;
+  subject: string;
   comment: string;
   image: File | null;
 }
 
-interface ComponentReplyForm {
-  fetchThread: () => Promise<void>;
-}
-
-export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
-  const { id } = useParams();
-  const threadRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    threadRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  };
-  const [formData, setFormData] = useState<ReplyFormProps>({
-    name: "",
+export default function NewThreadForm() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<ThreadFormProps>({
+    opName: "",
+    subject: "",
     comment: "",
     image: null,
   });
@@ -28,6 +20,7 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
   const formReset = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
+      subject: "",
       comment: "",
       image: null,
     }));
@@ -47,32 +40,31 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const dataToSend = new FormData();
-    dataToSend.append("name", formData.name);
+    dataToSend.append("opName", formData.opName);
+    dataToSend.append("subject", formData.subject);
     dataToSend.append("comment", formData.comment);
     if (formData.image !== null) {
       dataToSend.append("image", formData.image);
     }
-
-    fetch(`/api/threads/${id}`, {
-      method: "PATCH",
+    fetch(`/api/threads/`, {
+      method: "POST",
       body: dataToSend,
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error sending the reply.");
+          throw new Error("Error sending the thread.");
         }
         return response.json();
       })
-      .then(() => {
+      .then((data) => {
         formReset();
-        fetchThread().then(() => {
-          scrollToBottom();
-        });
+        navigate(`/thread/${data._id}`);
       })
       .catch((error) => {
-        console.error("Error sending the reply:", error);
+        console.error("Error sending the thread:", error);
       });
   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -80,27 +72,38 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
       className="grid grid-cols-2 grid-rows gap-4 w-1/2 self-center "
     >
       <div>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="opName">Name</label>
         <input
-          onChange={handleChange}
-          value={formData.name}
           className="p-1 border border-black w-full text-black"
+          onChange={handleChange}
+          value={formData.opName}
           type="text"
-          id="name"
-          name="name"
+          id="opName"
+          name="opName"
           placeholder="Anonymous"
         />
       </div>
 
       <div className="col-span-2">
+        <label htmlFor="subject">Subject</label>
+        <input
+          className="p-1 border border-black w-full text-black"
+          onChange={handleChange}
+          value={formData.subject}
+          maxLength={128}
+          type="text"
+          id="subject"
+          name="subject"
+        />
+      </div>
+      <div className="col-span-2">
         <label className="" htmlFor="comment">
           Comment
         </label>
         <textarea
+          className="p-1 border border-black h-16 w-full text-black"
           onChange={handleChange}
           value={formData.comment}
-          required
-          className="p-1 border border-black h-16 w-full text-black"
           id="comment"
           name="comment"
         />
@@ -108,16 +111,17 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
       <div className="col-span-2">
         <label htmlFor="file">Add a file ?</label>
         <input
-          onChange={handleChange}
           className="w-full text-white file:border-2  file:text-white file:cursor-pointer file:bg-indigo-500 file:rounded-md file:border-white file:hover:bg-indigo-600  file:font-semibold file:py-1 file:px-2 "
+          onChange={handleChange}
           type="file"
-          id="fileInput"
-          name="file"
+          id="image"
+          name="image"
           accept=".jpg, .png, .jpeg, .gif"
         />
       </div>
+
       <div className="flex justify-center w-full col-span-2">
-        {formData.comment.length > 0 ? (
+        {formData.image ? (
           <button
             type="submit"
             className=" border-2 w-1/2 cursor-pointer bg-indigo-500 text-white rounded-md border-white hover:bg-indigo-600  font-semibold py-2 px-4 transform transition-transform hover:translate-y-1 hover:scale-105"
@@ -126,7 +130,7 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
           </button>
         ) : (
           <p className="font-bold text-red-600">
-            (You need write a comment or upload an image to post a new reply)
+            (You need to provide an image to post a new thread)
           </p>
         )}
       </div>

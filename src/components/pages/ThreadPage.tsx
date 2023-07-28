@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../Header";
-import ReplyButton from "../post/ReplyButton";
+import NewReplyButton from "../post/NewReplyButton";
 import Thread from "../thread/Thread";
 
 interface ThreadProps {
@@ -34,7 +34,6 @@ export default function ThreadPage() {
 
     if (response.ok) {
       setThread(json);
-      console.log("TEST");
     }
   };
 
@@ -45,7 +44,7 @@ export default function ThreadPage() {
   return (
     <div className="flex flex-col gap-4 w-full min-h-screen h-full bg-gray-900 text-white">
       <Header />
-      <ReplyButton fetchThread={fetchThread} />
+      <NewReplyButton fetchThread={fetchThread} />
       <div className="flex flex-grow  justify-center items-center">
         <Thread thread={thread} />
       </div>

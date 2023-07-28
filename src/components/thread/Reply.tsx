@@ -1,6 +1,7 @@
 import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
 import idFormat from "../utils/idFormat";
+import config from "../../../env";
 
 interface ReplyProps {
   id: string;
@@ -17,6 +18,7 @@ export default function Reply({ id, name, comment, image, date }: ReplyProps) {
       return false;
     }
   }
+  const imageUrl = image.substring(7, image.length);
   return (
     <>
       {hasImage(image) && (
@@ -42,7 +44,7 @@ export default function Reply({ id, name, comment, image, date }: ReplyProps) {
             <img
               className="mx-2 float-left  max-w-40 max-h-40"
               loading="lazy"
-              src={image}
+              src={`${config.apiBaseUrl}/${imageUrl}`}
             />
             <p className="m-4 break-all w-auto  sm:min-w-[500px]">{comment}</p>
           </div>
