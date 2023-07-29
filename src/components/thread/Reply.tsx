@@ -8,17 +8,28 @@ interface ReplyProps {
   name: string;
   comment: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageSize: number;
   date: string;
 }
-export default function Reply({ id, name, comment, image, date }: ReplyProps) {
+export default function Reply({
+  id,
+  name,
+  comment,
+  image,
+  imageWidth,
+  imageHeight,
+  imageSize,
+  date,
+}: ReplyProps) {
   function hasImage(image: string): boolean {
-    if (image.length > 0) {
+    if (image) {
       return true;
     } else {
       return false;
     }
   }
-  const imageUrl = image.substring(7, image.length);
   return (
     <>
       {hasImage(image) && (
@@ -38,13 +49,16 @@ export default function Reply({ id, name, comment, image, date }: ReplyProps) {
                 {truncateImageLink(image)}
               </a>
               {" ("}
-              <span>84 KB</span>,<span>824</span>x<span>742</span>
+              <span>
+                {`${imageSize} KB`}, {imageWidth}
+              </span>
+              x<span>{imageHeight}</span>
               {")"}
             </p>
             <img
               className="mx-2 float-left  max-w-40 max-h-40"
               loading="lazy"
-              src={`${config.apiBaseUrl}/${imageUrl}`}
+              src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
             />
             <p className="m-4 break-all w-auto  sm:min-w-[500px]">{comment}</p>
           </div>

@@ -8,11 +8,17 @@ interface ThreadProps {
     subject: string;
     comment: string;
     image: string;
+    imageWidth: number;
+    imageHeight: number;
+    imageSize: number;
     replies: Array<{
       _id: string;
       name: string;
       comment: string;
       image: string;
+      imageWidth: number;
+      imageHeight: number;
+      imageSize: number;
       createdAt: string;
     }>;
     createdAt: string;
@@ -30,6 +36,9 @@ export default function Thread({ thread }: ThreadProps) {
             subject={thread.subject}
             comment={thread.comment}
             image={thread.image}
+            imageWidth={thread.imageWidth}
+            imageHeight={thread.imageHeight}
+            imageSize={thread.imageSize}
             date={thread.createdAt}
           />
           {thread.replies.map((reply) => (
@@ -39,6 +48,9 @@ export default function Thread({ thread }: ThreadProps) {
               name={reply.name}
               comment={reply.comment}
               image={reply.image}
+              imageWidth={reply.imageWidth}
+              imageHeight={reply.imageHeight}
+              imageSize={reply.imageSize}
               date={reply.createdAt}
             />
           ))}

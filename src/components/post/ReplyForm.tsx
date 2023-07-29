@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-
 import { useParams } from "react-router-dom";
 
 interface ReplyFormProps {
@@ -15,16 +14,15 @@ interface ComponentReplyForm {
 export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
   const { id } = useParams();
   const threadRef = useRef<HTMLDivElement>(null);
-
   const scrollToBottom = () => {
     threadRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   };
+
   const [formData, setFormData] = useState<ReplyFormProps>({
     name: "",
     comment: "",
     image: null,
   });
-
   const formReset = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -42,12 +40,16 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
     } else {
       setFormData({ ...formData, [name]: value });
     }
+    console.log(formData);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const dataToSend = new FormData();
-    dataToSend.append("name", formData.name);
+    if (formData.name !== "") {
+      dataToSend.append("name", formData.name);
+    }
     dataToSend.append("comment", formData.comment);
     if (formData.image !== null) {
       dataToSend.append("image", formData.image);
@@ -59,7 +61,7 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error sending the reply.");
+          throw new Error("Response not ok");
         }
         return response.json();
       })
@@ -93,9 +95,7 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
       </div>
 
       <div className="col-span-2">
-        <label className="" htmlFor="comment">
-          Comment
-        </label>
+        <label htmlFor="comment">Comment</label>
         <textarea
           onChange={handleChange}
           value={formData.comment}
@@ -111,13 +111,13 @@ export default function ReplyForm({ fetchThread }: ComponentReplyForm) {
           onChange={handleChange}
           className="w-full text-white file:border-2  file:text-white file:cursor-pointer file:bg-indigo-500 file:rounded-md file:border-white file:hover:bg-indigo-600  file:font-semibold file:py-1 file:px-2 "
           type="file"
-          id="fileInput"
-          name="file"
+          id="image"
+          name="image"
           accept=".jpg, .png, .jpeg, .gif"
         />
       </div>
       <div className="flex justify-center w-full col-span-2">
-        {formData.comment.length > 0 ? (
+        {formData.comment ? (
           <button
             type="submit"
             className=" border-2 w-1/2 cursor-pointer bg-indigo-500 text-white rounded-md border-white hover:bg-indigo-600  font-semibold py-2 px-4 transform transition-transform hover:translate-y-1 hover:scale-105"

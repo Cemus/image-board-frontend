@@ -9,6 +9,9 @@ interface OpProps {
   subject: string;
   comment: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageSize: number;
   date: string;
 }
 
@@ -18,6 +21,9 @@ export default function Op({
   subject,
   comment,
   image,
+  imageWidth,
+  imageHeight,
+  imageSize,
   date,
 }: OpProps) {
   const imageUrl = image.substring(7, image.length);
@@ -35,7 +41,10 @@ export default function Op({
         File:{" "}
         <a className="text-blue-900 underline">{truncateImageLink(image)}</a>
         {" ("}
-        <span>84 KB</span>,<span>824</span>x<span>742</span>
+        <span>
+          {`${imageSize} KB`}, {imageWidth}
+        </span>
+        x<span>{imageHeight}</span>
         {")"}
       </p>
       <div className="flex items-start mb-2 mr-2 flex-col sm:flex-row sm:gap-1">

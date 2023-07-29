@@ -16,7 +16,6 @@ export default function NewThreadForm() {
     comment: "",
     image: null,
   });
-
   const formReset = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -39,13 +38,18 @@ export default function NewThreadForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const dataToSend = new FormData();
-    dataToSend.append("opName", formData.opName);
+    if (formData.opName !== "") {
+      dataToSend.append("opName", formData.opName);
+    }
     dataToSend.append("subject", formData.subject);
     dataToSend.append("comment", formData.comment);
     if (formData.image !== null) {
       dataToSend.append("image", formData.image);
     }
+    console.log("Data to send:", dataToSend);
+
     fetch(`/api/threads/`, {
       method: "POST",
       body: dataToSend,
@@ -87,8 +91,8 @@ export default function NewThreadForm() {
       <div className="col-span-2">
         <label htmlFor="subject">Subject</label>
         <input
-          className="p-1 border border-black w-full text-black"
           onChange={handleChange}
+          className="p-1 border border-black w-full text-black"
           value={formData.subject}
           maxLength={128}
           type="text"
@@ -97,12 +101,10 @@ export default function NewThreadForm() {
         />
       </div>
       <div className="col-span-2">
-        <label className="" htmlFor="comment">
-          Comment
-        </label>
+        <label htmlFor="comment">Comment</label>
         <textarea
-          className="p-1 border border-black h-16 w-full text-black"
           onChange={handleChange}
+          className="p-1 border border-black h-16 w-full text-black"
           value={formData.comment}
           id="comment"
           name="comment"
@@ -111,8 +113,8 @@ export default function NewThreadForm() {
       <div className="col-span-2">
         <label htmlFor="file">Add a file ?</label>
         <input
-          className="w-full text-white file:border-2  file:text-white file:cursor-pointer file:bg-indigo-500 file:rounded-md file:border-white file:hover:bg-indigo-600  file:font-semibold file:py-1 file:px-2 "
           onChange={handleChange}
+          className="w-full text-white file:border-2  file:text-white file:cursor-pointer file:bg-indigo-500 file:rounded-md file:border-white file:hover:bg-indigo-600  file:font-semibold file:py-1 file:px-2 "
           type="file"
           id="image"
           name="image"
