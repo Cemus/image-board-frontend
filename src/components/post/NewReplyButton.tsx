@@ -1,19 +1,27 @@
-import { useState } from "react";
 import HorizontalRule from "../HorizontalRule";
 import ReplyForm from "./ReplyForm";
 
 interface ComponentReplyForm {
   fetchThread: () => Promise<void>;
+  startReplyToggle: boolean;
+  setStartReplyToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  commentArea: string;
+  setCommentArea: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function ReplyButton({ fetchThread }: ComponentReplyForm) {
-  const [startThreadToggle, setStartThreadToggle] = useState(false);
+export default function ReplyButton({
+  fetchThread,
+  startReplyToggle,
+  setStartReplyToggle,
+  commentArea,
+  setCommentArea,
+}: ComponentReplyForm) {
   function handleClickNewThread() {
-    setStartThreadToggle((prevStartThreadToggle) => !prevStartThreadToggle);
+    setStartReplyToggle((prevStartReplyToggle) => !prevStartReplyToggle);
   }
   return (
     <>
-      {!startThreadToggle && (
+      {!startReplyToggle && (
         <button
           className=" m-auto p-1 rounded-md hover:bg-slate-500"
           onClick={handleClickNewThread}
@@ -22,7 +30,13 @@ export default function ReplyButton({ fetchThread }: ComponentReplyForm) {
           <span className="text-lg underline underline-offset-2">Reply</span>!
         </button>
       )}
-      {startThreadToggle && <ReplyForm fetchThread={fetchThread} />}
+      {startReplyToggle && (
+        <ReplyForm
+          fetchThread={fetchThread}
+          commentArea={commentArea}
+          setCommentArea={setCommentArea}
+        />
+      )}
       <HorizontalRule />
     </>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 
 interface ThreadFormProps {
@@ -9,6 +9,7 @@ interface ThreadFormProps {
 }
 
 export default function NewThreadForm() {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<ThreadFormProps>({
     opName: "",
@@ -19,10 +20,12 @@ export default function NewThreadForm() {
   const formReset = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      subject: "",
       comment: "",
       image: null,
     }));
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleChange = (
@@ -48,7 +51,6 @@ export default function NewThreadForm() {
     if (formData.image !== null) {
       dataToSend.append("image", formData.image);
     }
-    console.log("Data to send:", dataToSend);
 
     fetch(`/api/threads/`, {
       method: "POST",
@@ -113,6 +115,7 @@ export default function NewThreadForm() {
       <div className="col-span-2">
         <label htmlFor="file">Add a file ?</label>
         <input
+          ref={fileInputRef}
           onChange={handleChange}
           className="w-full text-white file:border-2  file:text-white file:cursor-pointer file:bg-indigo-500 file:rounded-md file:border-white file:hover:bg-indigo-600  file:font-semibold file:py-1 file:px-2 "
           type="file"
