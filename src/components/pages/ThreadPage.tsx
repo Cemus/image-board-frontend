@@ -67,6 +67,7 @@ export default function ThreadPage() {
           setStartReplyToggle={setStartReplyToggle}
           setCommentArea={setCommentArea}
           commentArea={commentArea}
+          fetchThread={fetchThread}
         />
       </div>
     </div>

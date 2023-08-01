@@ -104,7 +104,7 @@ export default function ReplyForm({
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"
-        className="grid grid-cols-2 grid-rows gap-4 w-1/2 self-center "
+        className="grid grid-cols-2 grid-rows gap-4 self-center "
       >
         <div>
           <label htmlFor="name">Name</label>

@@ -3,6 +3,7 @@ import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
 import idFormat from "../utils/idFormat";
 import config from "../../../env";
+import ReplyLink from "./ReplyLink";
 
 interface ReplyProps {
   id: string;
@@ -21,8 +22,9 @@ interface ReplyProps {
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     replyId: string | undefined
   ) => void;
-
+  setIsReplyFormHovered: React.Dispatch<React.SetStateAction<boolean>>;
   handleReplyUnhover: () => void;
+  replyNotFound: Array<string | undefined>;
 }
 export default function Reply({
   id,
@@ -39,6 +41,8 @@ export default function Reply({
   scrollToReply,
   handleReplyHover,
   handleReplyUnhover,
+  setIsReplyFormHovered,
+  replyNotFound,
 }: ReplyProps) {
   function hasImage(image: string): boolean {
     if (image) {
@@ -62,13 +66,13 @@ export default function Reply({
   };
 
   const handleReplyInForm = () => {
-    window.scrollTo({ top: 0 });
     setStartReplyToggle(true);
+    setIsReplyFormHovered(true);
     if (commentArea === "") {
-      setCommentArea(`@${idFormat(id)} `);
+      setCommentArea(`@${idFormat(id)}\n`);
     } else {
       setCommentArea(
-        (prevCommentArea) => `${prevCommentArea}\n@${idFormat(id)} `
+        (prevCommentArea) => `${prevCommentArea}@${idFormat(id)}\n`
       );
     }
   };
@@ -95,19 +99,16 @@ export default function Reply({
         </span>
       );
       result.push(
-        <span
+        <ReplyLink
           key={index}
-          className="font-bold text-blue-900 underline cursor-pointer"
-          onMouseEnter={(e) => handleReplyHover(e, replyId)}
-          onMouseLeave={handleReplyUnhover}
-          onClick={() => {
-            if (typeof replyId === "string") {
-              scrollToReply(replyId);
-            }
-          }}
-        >
-          {match[0]}
-        </span>
+          scrollToReply={scrollToReply}
+          handleReplyHover={handleReplyHover}
+          handleReplyUnhover={handleReplyUnhover}
+          match={match[0]}
+          replyId={replyId}
+          index={index}
+          replyNotFound={replyNotFound}
+        />
       );
 
       lastIndex = index + match[0].length;

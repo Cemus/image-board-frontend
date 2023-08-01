@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import Op from "./Op";
 import Reply from "./Reply";
 import idFormat from "../utils/idFormat";
+import ReplyForm from "../post/ReplyForm";
 
 interface ThreadProps {
   thread: {
@@ -28,24 +29,38 @@ interface ThreadProps {
   setStartReplyToggle: React.Dispatch<React.SetStateAction<boolean>>;
   commentArea: string;
   setCommentArea: React.Dispatch<React.SetStateAction<string>>;
+  fetchThread: () => Promise<void>;
 }
 
 export default function Thread({
   thread,
   setStartReplyToggle,
+  fetchThread,
   setCommentArea,
   commentArea,
 }: ThreadProps) {
   const replyRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const [replyNotFound, setReplyNotFound] = useState<string[]>([]);
   function scrollToReply(replyId: string) {
+    let found = false;
     for (const key in replyRefs.current) {
       if (idFormat(key) === replyId) {
         const replyRef = replyRefs.current[key];
         if (replyRef) {
           replyRef.scrollIntoView({ behavior: "smooth" });
+          found = true;
           break;
         }
       }
+    }
+    if (found === false) {
+      if (!replyNotFound.includes(replyId)) {
+        setReplyNotFound((prevReplyNotFound) => [
+          ...prevReplyNotFound,
+          replyId,
+        ]);
+      }
+      console.log(replyNotFound);
     }
   }
   const [isReplyHovered, setIsReplyHovered] = useState(false);
@@ -62,6 +77,7 @@ export default function Thread({
   function handleReplyUnhover() {
     setIsReplyHovered(false);
   }
+  const [isReplyFormHovered, setIsReplyFormHovered] = useState(false);
   return (
     <>
       {thread ? (
@@ -101,44 +117,59 @@ export default function Thread({
                 scrollToReply={scrollToReply}
                 handleReplyHover={handleReplyHover}
                 handleReplyUnhover={handleReplyUnhover}
+                setIsReplyFormHovered={setIsReplyFormHovered}
+                replyNotFound={replyNotFound}
               />
             </div>
           ))}
-          {isReplyHovered && (
-            <div className="hidden md:fixed md:block top-0 right-0 max-w-[50%]">
-              {(() => {
-                const hoveredReply = thread?.replies.find(
-                  (reply) => idFormat(reply._id) === replyHoveredId
-                );
-                if (hoveredReply) {
-                  return (
-                    <Reply
-                      key={hoveredReply._id}
-                      id={hoveredReply._id}
-                      name={hoveredReply.name}
-                      comment={hoveredReply.comment}
-                      image={hoveredReply.image}
-                      imageWidth={hoveredReply.imageWidth}
-                      imageHeight={hoveredReply.imageHeight}
-                      imageSize={hoveredReply.imageSize}
-                      date={hoveredReply.createdAt}
-                      setStartReplyToggle={setStartReplyToggle}
-                      commentArea={commentArea}
-                      setCommentArea={setCommentArea}
-                      scrollToReply={scrollToReply}
-                      handleReplyHover={handleReplyHover}
-                      handleReplyUnhover={handleReplyUnhover}
-                    />
-                  );
-                }
-                return null;
-              })()}
-            </div>
-          )}
         </div>
       ) : (
         <div className="flex justify-center items-center w-full h-10 mt-[-20%]">
           <div className=" w-12 h-12 border-t-4 border-grey-500 border-solid rounded-full animate-spin"></div>
+        </div>
+      )}
+      {isReplyFormHovered && (
+        <div className="fixed top-20 right-0 bg-gray-700 p-4 rounded-xl mr-2 -z-1">
+          <div className="inline-flex items-center justify-center">
+            <ReplyForm
+              fetchThread={fetchThread}
+              setCommentArea={setCommentArea}
+              commentArea={commentArea}
+            />
+          </div>
+        </div>
+      )}
+      {isReplyHovered && (
+        <div className="hidden md:fixed md:block top-0 right-0 max-w-[50%] z-10">
+          {(() => {
+            const hoveredReply = thread?.replies.find(
+              (reply) => idFormat(reply._id) === replyHoveredId
+            );
+            if (hoveredReply) {
+              return (
+                <Reply
+                  key={hoveredReply._id}
+                  id={hoveredReply._id}
+                  name={hoveredReply.name}
+                  comment={hoveredReply.comment}
+                  image={hoveredReply.image}
+                  imageWidth={hoveredReply.imageWidth}
+                  imageHeight={hoveredReply.imageHeight}
+                  imageSize={hoveredReply.imageSize}
+                  date={hoveredReply.createdAt}
+                  setStartReplyToggle={setStartReplyToggle}
+                  commentArea={commentArea}
+                  setCommentArea={setCommentArea}
+                  scrollToReply={scrollToReply}
+                  handleReplyHover={handleReplyHover}
+                  handleReplyUnhover={handleReplyUnhover}
+                  setIsReplyFormHovered={setIsReplyFormHovered}
+                  replyNotFound={replyNotFound}
+                />
+              );
+            }
+            return null;
+          })()}
         </div>
       )}
     </>
