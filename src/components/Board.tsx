@@ -25,7 +25,7 @@ export default function Board() {
   return (
     <>
       {threads && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center bg-gray-900">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 items-start bg-gray-900">
           {threads.map((thread) => (
             <ThreadThumbnail
               key={thread._id}

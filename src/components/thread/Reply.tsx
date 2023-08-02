@@ -140,7 +140,11 @@ export default function Reply({
             <p className="mx-2">
               File:{" "}
               <a
-                onClick={handleImageClick}
+                href={`${config.apiBaseUrl}/${image.substring(
+                  7,
+                  image.length
+                )}`}
+                target="_blank"
                 className="text-blue-900 underline :hover cursor-pointer"
               >
                 {truncateImageLink(image)}
@@ -160,14 +164,15 @@ export default function Reply({
                 className="mx-2 float-left  max-w-40 max-h-40 :hover cursor-pointer"
                 loading="lazy"
                 src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+                alt={`image-${id}`}
               />
             )}
             {isImageClicked && (
               <img
                 onClick={handleImageClick}
                 className="mx-2 float-left  max-w-[80%] :hover cursor-pointer"
-                loading="lazy"
                 src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+                alt={`image-${id}`}
               />
             )}
             <p className="m-4 break-all w-auto  sm:min-w-[500px]">
@@ -179,6 +184,7 @@ export default function Reply({
               className="hidden md:fixed  md:block top-0 right-0 max-w-[50%]"
               loading="lazy"
               src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+              alt={`image-${id}`}
             />
           )}
         </div>

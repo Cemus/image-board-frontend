@@ -90,9 +90,9 @@ export default function Reply({
             </div>
             <p className="mx-2">
               File:{" "}
-              <a className="text-blue-900 underline :hover cursor-pointer">
+              <p className="text-blue-900 underline :hover cursor-pointer">
                 {truncateImageLink(image)}
-              </a>
+              </p>
               {" ("}
               <span>
                 {`${imageSize} KB`}, {imageWidth}

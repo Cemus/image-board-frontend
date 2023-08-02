@@ -75,7 +75,8 @@ export default function Op({
       <p>
         File:{" "}
         <a
-          onClick={handleImageClick}
+          href={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+          target="_blank"
           className="text-blue-900 underline :hover cursor-pointer"
         >
           {truncateImageLink(image)}
@@ -96,14 +97,15 @@ export default function Op({
             className="mx-2 float-left  max-w-40 max-h-40 :hover cursor-pointer"
             loading="lazy"
             src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+            alt={`image-${id}`}
           />
         )}
         {isImageClicked && (
           <img
             onClick={handleImageClick}
             className="mx-2 float-left  max-w-[80%] :hover cursor-pointer"
-            loading="lazy"
             src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+            alt={`image-${id}`}
           />
         )}
         {isImageHovered && !isImageClicked && (
@@ -111,6 +113,7 @@ export default function Op({
             className="hidden md:fixed  md:block top-0 right-0 max-w-[50%]"
             loading="lazy"
             src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+            alt={`image-${id}`}
           />
         )}
         <div className="flex flex-col gap-1 ml-2 md:ml-0 sm:ml-2">
