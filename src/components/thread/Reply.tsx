@@ -118,6 +118,7 @@ export default function Reply({
     );
     return result;
   }
+
   return (
     <>
       {hasImage(image) && (
@@ -134,6 +135,9 @@ export default function Reply({
                   className=":hover cursor-pointer hover:text-blue-800"
                 >
                   {idFormat(id)}
+                </span>
+                <span className=":hover cursor-pointer hover:text-blue-800">
+                  {}
                 </span>
               </p>
             </div>

@@ -41,9 +41,11 @@ export default function Thread({
 }: ThreadProps) {
   const replyRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [replyNotFound, setReplyNotFound] = useState<string[]>([]);
+
   function scrollToReply(replyId: string) {
     let found = false;
     for (const key in replyRefs.current) {
+      console.log(replyRefs.current);
       if (idFormat(key) === replyId) {
         const replyRef = replyRefs.current[key];
         if (replyRef) {
@@ -63,6 +65,7 @@ export default function Thread({
       console.log(replyNotFound);
     }
   }
+
   const [isReplyHovered, setIsReplyHovered] = useState(false);
   const [replyHoveredId, setReplyHoveredId] = useState<string | null>(null);
   function handleReplyHover(
