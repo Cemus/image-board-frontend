@@ -1,11 +1,11 @@
 import { useState } from "react";
 import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
-import idFormat from "../utils/idFormat";
 import config from "../../../env";
 
 interface OpProps {
   id: string;
+  formatedId: string;
   opName: string;
   subject: string;
   comment: string;
@@ -21,6 +21,7 @@ interface OpProps {
 
 export default function Op({
   id,
+  formatedId,
   opName,
   subject,
   comment,
@@ -50,10 +51,10 @@ export default function Op({
     window.scrollTo({ top: 0 });
     setStartReplyToggle(true);
     if (commentArea === "") {
-      setCommentArea(`@${idFormat(id)}(OP) `);
+      setCommentArea(`@${formatedId}(OP) `);
     } else {
       setCommentArea(
-        (prevCommentArea) => `${prevCommentArea}\n@${idFormat(id)} `
+        (prevCommentArea) => `${prevCommentArea}\n@${formatedId} `
       );
     }
   };
@@ -68,7 +69,7 @@ export default function Op({
             onClick={handleReplyInForm}
             className=":hover cursor-pointer hover:text-blue-800"
           >
-            {idFormat(id)}
+            {formatedId}
           </span>
         </p>
       </div>

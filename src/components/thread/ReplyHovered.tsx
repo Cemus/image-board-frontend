@@ -1,11 +1,11 @@
 import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
-import idFormat from "../utils/idFormat";
 import config from "../../../env";
 import ReplyLinkHovered from "./ReplyLinkHovered";
 
 interface ReplyProps {
   id: string;
+  formatedId: string;
   name: string;
   comment: string;
   image: string;
@@ -16,7 +16,7 @@ interface ReplyProps {
   replyNotFound: Array<string | undefined>;
 }
 export default function Reply({
-  id,
+  formatedId,
   name,
   comment,
   image,
@@ -84,7 +84,7 @@ export default function Reply({
               <p>
                 No.{" "}
                 <span className=":hover cursor-pointer hover:text-blue-800">
-                  {idFormat(id)}
+                  {formatedId}
                 </span>
               </p>
             </div>
@@ -120,7 +120,7 @@ export default function Reply({
               <p>
                 No.{" "}
                 <span className=":hover cursor-pointer hover:text-blue-800">
-                  {idFormat(id)}
+                  {formatedId}
                 </span>
               </p>
             </div>

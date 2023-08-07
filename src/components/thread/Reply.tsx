@@ -1,12 +1,12 @@
 import { useState } from "react";
 import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
-import idFormat from "../utils/idFormat";
 import config from "../../../env";
 import ReplyLink from "./ReplyLink";
 
 interface ReplyProps {
   id: string;
+  formatedId: string;
   name: string;
   comment: string;
   image: string;
@@ -14,6 +14,7 @@ interface ReplyProps {
   imageHeight: number;
   imageSize: number;
   date: string;
+  replies: Array<string | undefined>;
   setStartReplyToggle: React.Dispatch<React.SetStateAction<boolean>>;
   commentArea: string;
   setCommentArea: React.Dispatch<React.SetStateAction<string>>;
@@ -28,6 +29,7 @@ interface ReplyProps {
 }
 export default function Reply({
   id,
+  formatedId,
   name,
   comment,
   image,
@@ -35,6 +37,7 @@ export default function Reply({
   imageHeight,
   imageSize,
   date,
+  replies,
   setStartReplyToggle,
   commentArea,
   setCommentArea,
@@ -69,14 +72,12 @@ export default function Reply({
     setStartReplyToggle(true);
     setIsReplyFormHovered(true);
     if (commentArea === "") {
-      setCommentArea(`@${idFormat(id)}\n`);
+      setCommentArea(`@${formatedId}\n`);
     } else {
-      setCommentArea(
-        (prevCommentArea) => `${prevCommentArea}@${idFormat(id)}\n`
-      );
+      setCommentArea((prevCommentArea) => `${prevCommentArea}@${formatedId}\n`);
     }
   };
-
+  console.log(replies);
   function getReplyIdFromMatch(atUserId: string): string | undefined {
     const regex = /(\d{8})/g;
     const match = atUserId.match(regex);
@@ -134,7 +135,7 @@ export default function Reply({
                   onClick={handleReplyInForm}
                   className=":hover cursor-pointer hover:text-blue-800"
                 >
-                  {idFormat(id)}
+                  {formatedId}
                 </span>
                 <span className=":hover cursor-pointer hover:text-blue-800">
                   {}
@@ -207,8 +208,12 @@ export default function Reply({
                   onClick={handleReplyInForm}
                   className=":hover cursor-pointer hover:text-blue-800"
                 >
-                  {idFormat(id)}
+                  {formatedId}
                 </span>
+                {replies.length > 0 &&
+                  replies.map((reply, index) => (
+                    <span key={index}>{reply}</span>
+                  ))}
               </p>
             </div>
             <p className="m-4 break-all">{makeClickableComment(comment)}</p>

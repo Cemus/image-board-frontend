@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
 import Op from "./Op";
 import Reply from "./Reply";
-import idFormat from "../utils/idFormat";
 import ReplyForm from "../post/ReplyForm";
 
 interface ThreadProps {
   thread: {
     _id: string;
+    formatedId: string;
     opName: string;
     subject: string;
     comment: string;
@@ -16,6 +16,7 @@ interface ThreadProps {
     imageSize: number;
     replies: Array<{
       _id: string;
+      formatedId: string;
       name: string;
       comment: string;
       image: string;
@@ -23,6 +24,7 @@ interface ThreadProps {
       imageHeight: number;
       imageSize: number;
       createdAt: string;
+      replies: Array<string | undefined>;
     }>;
     createdAt: string;
   } | null;
@@ -46,7 +48,7 @@ export default function Thread({
     let found = false;
     for (const key in replyRefs.current) {
       console.log(replyRefs.current);
-      if (idFormat(key) === replyId) {
+      if (key === replyId) {
         const replyRef = replyRefs.current[key];
         if (replyRef) {
           replyRef.scrollIntoView({ behavior: "smooth" });
@@ -87,6 +89,7 @@ export default function Thread({
         <div className="flex-col items-start self-start w-full h-full">
           <Op
             id={thread._id}
+            formatedId={thread.formatedId}
             opName={thread.opName}
             subject={thread.subject}
             comment={thread.comment}
@@ -107,6 +110,7 @@ export default function Thread({
               <Reply
                 key={reply._id}
                 id={reply._id}
+                formatedId={reply.formatedId}
                 name={reply.name}
                 comment={reply.comment}
                 image={reply.image}
@@ -114,6 +118,7 @@ export default function Thread({
                 imageHeight={reply.imageHeight}
                 imageSize={reply.imageSize}
                 date={reply.createdAt}
+                replies={reply.replies}
                 setStartReplyToggle={setStartReplyToggle}
                 commentArea={commentArea}
                 setCommentArea={setCommentArea}
@@ -146,13 +151,14 @@ export default function Thread({
         <div className="hidden md:fixed md:block top-0 right-0 max-w-[50%] z-10">
           {(() => {
             const hoveredReply = thread?.replies.find(
-              (reply) => idFormat(reply._id) === replyHoveredId
+              (reply) => reply.formatedId === replyHoveredId
             );
             if (hoveredReply) {
               return (
                 <Reply
                   key={hoveredReply._id}
                   id={hoveredReply._id}
+                  formatedId={hoveredReply.formatedId}
                   name={hoveredReply.name}
                   comment={hoveredReply.comment}
                   image={hoveredReply.image}
@@ -160,6 +166,7 @@ export default function Thread({
                   imageHeight={hoveredReply.imageHeight}
                   imageSize={hoveredReply.imageSize}
                   date={hoveredReply.createdAt}
+                  replies={hoveredReply.replies}
                   setStartReplyToggle={setStartReplyToggle}
                   commentArea={commentArea}
                   setCommentArea={setCommentArea}
