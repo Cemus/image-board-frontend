@@ -10,7 +10,6 @@ interface ThreadProps {
 
 export default function Board() {
   const [threads, setThreads] = useState<ThreadProps[] | null>(null);
-  console.log(threads);
   useEffect(() => {
     const fetchThreads = async () => {
       const response = await fetch("/api/threads");
