@@ -9,17 +9,15 @@ interface ReplyLinkProps {
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     replyId: string | undefined
   ) => void;
-  match: string | undefined;
   replyNotFound: Array<string | undefined>;
 }
 
-export default function ReplyLink({
+export default function QuoteLink({
   index,
   replyId,
   handleReplyHover,
   handleReplyUnhover,
   scrollToReply,
-  match,
   replyNotFound,
 }: ReplyLinkProps) {
   const [missingReply, setMissingReply] = useState(false);
@@ -35,7 +33,7 @@ export default function ReplyLink({
       {!missingReply && (
         <span
           key={`${index}`}
-          className="font-bold text-blue-900 underline cursor-pointer hover:text-blue-300"
+          className="font-bold text-xs text-blue-900 underline cursor-pointer hover:text-blue-300"
           onMouseEnter={(e) => handleReplyHover(e, replyId)}
           onMouseLeave={handleReplyUnhover}
           onClick={() => {
@@ -44,16 +42,16 @@ export default function ReplyLink({
             }
           }}
         >
-          {`${match}`}
+          {`@${replyId}`}
         </span>
       )}
       {missingReply && (
         <div>
           <span
             key={`${index}`}
-            className="font-bold text-red-900 underline cursor-pointer"
+            className="font-bold text-xs  text-red-900 underline cursor-pointer hover:text-red-300"
           >
-            {`${match}`}
+            {`${replyId}`}
           </span>
           <span className="font-bold text-red-900">{` (not found)`}</span>
           <br />

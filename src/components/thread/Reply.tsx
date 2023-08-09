@@ -3,6 +3,7 @@ import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
 import config from "../../../env";
 import ReplyLink from "./ReplyLink";
+import QuoteLink from "./QuoteLink";
 
 interface ReplyProps {
   id: string;
@@ -212,7 +213,19 @@ export default function Reply({
                 </span>
                 {replies.length > 0 &&
                   replies.map((reply, index) => (
-                    <span key={index}>{reply}</span>
+                    <>
+                      <span key={index}> </span>
+                      <QuoteLink
+                        //Souci
+                        key={`${reply}${index}`}
+                        scrollToReply={scrollToReply}
+                        handleReplyHover={handleReplyHover}
+                        handleReplyUnhover={handleReplyUnhover}
+                        replyId={reply}
+                        index={index}
+                        replyNotFound={replyNotFound}
+                      />
+                    </>
                   ))}
               </p>
             </div>

@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet-async";
 
 interface ThreadProps {
   _id: string;
+  formatedId: string;
   opName: string;
   subject: string;
   comment: string;
@@ -16,6 +17,7 @@ interface ThreadProps {
   imageSize: number;
   replies: Array<{
     _id: string;
+    formatedId: string;
     name: string;
     comment: string;
     image: string;
@@ -23,6 +25,7 @@ interface ThreadProps {
     imageHeight: number;
     imageSize: number;
     createdAt: string;
+    replies: Array<string | undefined>;
   }>;
   createdAt: string;
   commentArea: string;
@@ -34,7 +37,7 @@ export default function ThreadPage() {
     window.scrollTo({ top: 0 });
   }, []);
   const [startReplyToggle, setStartReplyToggle] = useState(false);
-  const [thread, setThread] = useState<ThreadProps | null>(null); // Fix the type here
+  const [thread, setThread] = useState<ThreadProps | null>(null);
   const { id } = useParams();
 
   const fetchThread = async () => {

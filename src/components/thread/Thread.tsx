@@ -104,7 +104,7 @@ export default function Thread({
           />
           {thread.replies.map((reply, index) => (
             <div
-              ref={(element) => (replyRefs.current[reply._id] = element)}
+              ref={(element) => (replyRefs.current[reply.formatedId] = element)}
               key={index}
             >
               <Reply
