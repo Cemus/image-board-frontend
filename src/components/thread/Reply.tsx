@@ -211,23 +211,19 @@ export default function Reply({
                 >
                   {formatedId}
                 </span>
-                {replies.length > 0 &&
-                  replies.map((reply, index) => (
-                    <>
-                      <span key={index}> </span>
-                      <QuoteLink
-                        //Souci
-                        key={`${reply}${index}`}
-                        scrollToReply={scrollToReply}
-                        handleReplyHover={handleReplyHover}
-                        handleReplyUnhover={handleReplyUnhover}
-                        replyId={reply}
-                        index={index}
-                        replyNotFound={replyNotFound}
-                      />
-                    </>
-                  ))}
               </p>
+              {replies.length > 0 &&
+                replies.map((reply, index) => (
+                  <QuoteLink
+                    key={index}
+                    scrollToReply={scrollToReply}
+                    handleReplyHover={handleReplyHover}
+                    handleReplyUnhover={handleReplyUnhover}
+                    replyId={reply}
+                    index={index}
+                    replyNotFound={replyNotFound}
+                  />
+                ))}
             </div>
             <p className="m-4 break-all">{makeClickableComment(comment)}</p>
           </div>

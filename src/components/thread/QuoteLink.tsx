@@ -31,19 +31,23 @@ export default function QuoteLink({
   return (
     <>
       {!missingReply && (
-        <span
-          key={`${index}`}
-          className="font-bold text-xs text-blue-900 underline cursor-pointer hover:text-blue-300"
-          onMouseEnter={(e) => handleReplyHover(e, replyId)}
-          onMouseLeave={handleReplyUnhover}
-          onClick={() => {
-            if (typeof replyId === "string") {
-              scrollToReply(replyId);
-            }
-          }}
-        >
-          {`@${replyId}`}
-        </span>
+        <div>
+          <span></span>
+          <span
+            key={`${index}`}
+            className="font-bold text-xs text-blue-900 underline cursor-pointer hover:text-blue-300"
+            onMouseEnter={(e) => handleReplyHover(e, replyId)}
+            onMouseLeave={handleReplyUnhover}
+            onClick={() => {
+              if (typeof replyId === "string") {
+                scrollToReply(replyId);
+              }
+            }}
+          >
+            {`@${replyId}`}
+          </span>
+          <span></span>
+        </div>
       )}
       {missingReply && (
         <div>
