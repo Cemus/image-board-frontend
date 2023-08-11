@@ -14,6 +14,7 @@ interface ThreadProps {
     imageWidth: number;
     imageHeight: number;
     imageSize: number;
+    directReplies: Array<string | undefined>;
     replies: Array<{
       _id: string;
       formatedId: string;
@@ -24,7 +25,7 @@ interface ThreadProps {
       imageHeight: number;
       imageSize: number;
       createdAt: string;
-      replies: Array<string | undefined>;
+      directReplies: Array<string | undefined>;
     }>;
     createdAt: string;
   } | null;
@@ -83,25 +84,36 @@ export default function Thread({
     setIsReplyHovered(false);
   }
   const [isReplyFormHovered, setIsReplyFormHovered] = useState(false);
+
   return (
     <>
       {thread ? (
         <div className="flex-col items-start self-start w-full h-full">
-          <Op
-            id={thread._id}
-            formatedId={thread.formatedId}
-            opName={thread.opName}
-            subject={thread.subject}
-            comment={thread.comment}
-            image={thread.image}
-            imageWidth={thread.imageWidth}
-            imageHeight={thread.imageHeight}
-            imageSize={thread.imageSize}
-            date={thread.createdAt}
-            setStartReplyToggle={setStartReplyToggle}
-            commentArea={commentArea}
-            setCommentArea={setCommentArea}
-          />
+          <div
+            ref={(element) => (replyRefs.current[thread.formatedId] = element)}
+          >
+            <Op
+              id={thread._id}
+              formatedId={thread.formatedId}
+              opName={thread.opName}
+              subject={thread.subject}
+              comment={thread.comment}
+              image={thread.image}
+              imageWidth={thread.imageWidth}
+              imageHeight={thread.imageHeight}
+              imageSize={thread.imageSize}
+              date={thread.createdAt}
+              directReplies={thread.directReplies}
+              setStartReplyToggle={setStartReplyToggle}
+              commentArea={commentArea}
+              setCommentArea={setCommentArea}
+              scrollToReply={scrollToReply}
+              handleReplyHover={handleReplyHover}
+              handleReplyUnhover={handleReplyUnhover}
+              setIsReplyFormHovered={setIsReplyFormHovered}
+              replyNotFound={replyNotFound}
+            />
+          </div>
           {thread.replies.map((reply, index) => (
             <div
               ref={(element) => (replyRefs.current[reply.formatedId] = element)}
@@ -118,7 +130,7 @@ export default function Thread({
                 imageHeight={reply.imageHeight}
                 imageSize={reply.imageSize}
                 date={reply.createdAt}
-                replies={reply.replies}
+                directReplies={reply.directReplies}
                 setStartReplyToggle={setStartReplyToggle}
                 commentArea={commentArea}
                 setCommentArea={setCommentArea}
@@ -166,7 +178,7 @@ export default function Thread({
                   imageHeight={hoveredReply.imageHeight}
                   imageSize={hoveredReply.imageSize}
                   date={hoveredReply.createdAt}
-                  replies={hoveredReply.replies}
+                  directReplies={hoveredReply.directReplies}
                   setStartReplyToggle={setStartReplyToggle}
                   commentArea={commentArea}
                   setCommentArea={setCommentArea}

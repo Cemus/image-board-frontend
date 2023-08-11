@@ -15,7 +15,7 @@ interface ReplyProps {
   imageHeight: number;
   imageSize: number;
   date: string;
-  replies: Array<string | undefined>;
+  directReplies: Array<string | undefined>;
   setStartReplyToggle: React.Dispatch<React.SetStateAction<boolean>>;
   commentArea: string;
   setCommentArea: React.Dispatch<React.SetStateAction<string>>;
@@ -38,7 +38,7 @@ export default function Reply({
   imageHeight,
   imageSize,
   date,
-  replies,
+  directReplies,
   setStartReplyToggle,
   commentArea,
   setCommentArea,
@@ -78,7 +78,6 @@ export default function Reply({
       setCommentArea((prevCommentArea) => `${prevCommentArea}@${formatedId}\n`);
     }
   };
-  console.log(replies);
   function getReplyIdFromMatch(atUserId: string): string | undefined {
     const regex = /(\d{8})/g;
     const match = atUserId.match(regex);
@@ -212,8 +211,8 @@ export default function Reply({
                   {formatedId}
                 </span>
               </p>
-              {replies.length > 0 &&
-                replies.map((reply, index) => (
+              {directReplies.length > 0 &&
+                directReplies.map((reply, index) => (
                   <QuoteLink
                     key={index}
                     scrollToReply={scrollToReply}

@@ -15,6 +15,7 @@ interface ThreadProps {
   imageWidth: number;
   imageHeight: number;
   imageSize: number;
+  directReplies: Array<string | undefined>;
   replies: Array<{
     _id: string;
     formatedId: string;
@@ -25,7 +26,7 @@ interface ThreadProps {
     imageHeight: number;
     imageSize: number;
     createdAt: string;
-    replies: Array<string | undefined>;
+    directReplies: Array<string | undefined>;
   }>;
   createdAt: string;
   commentArea: string;

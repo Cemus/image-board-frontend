@@ -2,6 +2,7 @@ import { useState } from "react";
 import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
 import config from "../../../env";
+import QuoteLink from "./QuoteLink";
 
 interface OpProps {
   id: string;
@@ -14,9 +15,18 @@ interface OpProps {
   imageHeight: number;
   imageSize: number;
   date: string;
+  directReplies: Array<string | undefined>;
   setStartReplyToggle: React.Dispatch<React.SetStateAction<boolean>>;
   commentArea: string;
   setCommentArea: React.Dispatch<React.SetStateAction<string>>;
+  scrollToReply: (replyId: string) => void;
+  handleReplyHover: (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    replyId: string | undefined
+  ) => void;
+  setIsReplyFormHovered: React.Dispatch<React.SetStateAction<boolean>>;
+  handleReplyUnhover: () => void;
+  replyNotFound: Array<string | undefined>;
 }
 
 export default function Op({
@@ -30,9 +40,14 @@ export default function Op({
   imageHeight,
   imageSize,
   date,
+  directReplies,
   setStartReplyToggle,
   commentArea,
   setCommentArea,
+  scrollToReply,
+  handleReplyHover,
+  handleReplyUnhover,
+  replyNotFound,
 }: OpProps) {
   const [isImageHovered, setIsImageHovered] = useState(false);
   const [isImageClicked, setIsImageClicked] = useState(false);
@@ -58,6 +73,7 @@ export default function Op({
       );
     }
   };
+  console.log(directReplies);
   return (
     <div className="flex flex-col m-2 items-start ">
       <div className="flex flex-row gap-1">
@@ -72,6 +88,18 @@ export default function Op({
             {formatedId}
           </span>
         </p>
+        {directReplies.length > 0 &&
+          directReplies.map((reply, index) => (
+            <QuoteLink
+              key={index}
+              scrollToReply={scrollToReply}
+              handleReplyHover={handleReplyHover}
+              handleReplyUnhover={handleReplyUnhover}
+              replyId={reply}
+              index={index}
+              replyNotFound={replyNotFound}
+            />
+          ))}
       </div>
       <p>
         File:{" "}
