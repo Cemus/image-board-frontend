@@ -75,10 +75,10 @@ export default function Op({
   };
   console.log(directReplies);
   return (
-    <div className="flex flex-col m-2 items-start ">
+    <div className="flex flex-col m-2 items-start">
       <div className="flex flex-row gap-1">
         <p className=" font-bold">{opName}</p>
-        <p>{dateFormat(date)}</p>
+        <p className="flex flex-row flex-nowrap">{dateFormat(date)}</p>
         <p>
           No.{" "}
           <span

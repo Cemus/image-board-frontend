@@ -48,7 +48,6 @@ export default function Thread({
   function scrollToReply(replyId: string) {
     let found = false;
     for (const key in replyRefs.current) {
-      console.log(replyRefs.current);
       if (key === replyId) {
         const replyRef = replyRefs.current[key];
         if (replyRef) {

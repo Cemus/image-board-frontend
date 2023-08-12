@@ -79,13 +79,13 @@ export default function Reply({
     }
   };
   function getReplyIdFromMatch(atUserId: string): string | undefined {
-    const regex = /(\d{8})/g;
+    const regex = /@(\d{8})(\(OP\))?/g;
     const match = atUserId.match(regex);
     return match ? match[0] : undefined;
   }
 
   function makeClickableComment(comment: string) {
-    const regex = /@(\d{8})/g;
+    const regex = /@(\d{8})(\(OP\))?/g;
     const matches = Array.from(comment.matchAll(regex));
     let lastIndex = 0;
     const result = [];

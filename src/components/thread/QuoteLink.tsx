@@ -32,10 +32,10 @@ export default function QuoteLink({
     <>
       {!missingReply && (
         <div>
-          <span></span>
+          <span>{""}</span>
           <span
             key={`${index}`}
-            className="font-bold text-xs text-blue-900 underline cursor-pointer hover:text-blue-300"
+            className="flex font-bold text-xs text-blue-900 underline cursor-pointer hover:text-blue-300"
             onMouseEnter={(e) => handleReplyHover(e, replyId)}
             onMouseLeave={handleReplyUnhover}
             onClick={() => {
