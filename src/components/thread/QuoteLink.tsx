@@ -32,7 +32,6 @@ export default function QuoteLink({
     <>
       {!missingReply && (
         <div>
-          <span>{""}</span>
           <span
             key={`${index}`}
             className="flex font-bold text-xs text-blue-900 underline cursor-pointer hover:text-blue-300"
@@ -46,7 +45,6 @@ export default function QuoteLink({
           >
             {`@${replyId}`}
           </span>
-          <span></span>
         </div>
       )}
       {missingReply && (

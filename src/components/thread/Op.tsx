@@ -76,9 +76,9 @@ export default function Op({
   console.log(directReplies);
   return (
     <div className="flex flex-col m-2 items-start">
-      <div className="flex flex-row gap-1">
+      <div className="flex flex-row flex-wrap gap-1">
         <p className=" font-bold">{opName}</p>
-        <p className="flex flex-row flex-nowrap">{dateFormat(date)}</p>
+        <p>{dateFormat(date)}</p>
         <p>
           No.{" "}
           <span
@@ -88,18 +88,21 @@ export default function Op({
             {formatedId}
           </span>
         </p>
-        {directReplies.length > 0 &&
-          directReplies.map((reply, index) => (
-            <QuoteLink
-              key={index}
-              scrollToReply={scrollToReply}
-              handleReplyHover={handleReplyHover}
-              handleReplyUnhover={handleReplyUnhover}
-              replyId={reply}
-              index={index}
-              replyNotFound={replyNotFound}
-            />
-          ))}
+        {directReplies.length > 0 && (
+          <div className="flex flex-row flex-wrap gap-1">
+            {directReplies.map((reply, index) => (
+              <QuoteLink
+                key={index}
+                scrollToReply={scrollToReply}
+                handleReplyHover={handleReplyHover}
+                handleReplyUnhover={handleReplyUnhover}
+                replyId={reply}
+                index={index}
+                replyNotFound={replyNotFound}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <p>
         File:{" "}

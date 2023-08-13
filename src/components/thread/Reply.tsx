@@ -199,7 +199,7 @@ export default function Reply({
         <div className="flex flex-row">
           <p className="mx-2">{">>"}</p>
           <div className="bg-gray-500 p-1 rounded-sm mb-2 mr-2">
-            <div className="flex flex-row gap-1 mx-2">
+            <div className="flex flex-row flex-wrap gap-1 mx-2">
               <p className=" font-bold">{name}</p>
               <p>{dateFormat(date)}</p>
               <p>
@@ -211,18 +211,21 @@ export default function Reply({
                   {formatedId}
                 </span>
               </p>
-              {directReplies.length > 0 &&
-                directReplies.map((reply, index) => (
-                  <QuoteLink
-                    key={index}
-                    scrollToReply={scrollToReply}
-                    handleReplyHover={handleReplyHover}
-                    handleReplyUnhover={handleReplyUnhover}
-                    replyId={reply}
-                    index={index}
-                    replyNotFound={replyNotFound}
-                  />
-                ))}
+              {directReplies.length > 0 && (
+                <div className="flex flex-row flex-wrap gap-1">
+                  {directReplies.map((reply, index) => (
+                    <QuoteLink
+                      key={index}
+                      scrollToReply={scrollToReply}
+                      handleReplyHover={handleReplyHover}
+                      handleReplyUnhover={handleReplyUnhover}
+                      replyId={reply}
+                      index={index}
+                      replyNotFound={replyNotFound}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
             <p className="m-4 break-all">{makeClickableComment(comment)}</p>
           </div>
