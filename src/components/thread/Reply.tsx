@@ -79,7 +79,8 @@ export default function Reply({
     }
   };
   function getReplyIdFromMatch(atUserId: string): string | undefined {
-    const regex = /@(\d{8})(\(OP\))?/g;
+    const regex = /(\d{8})(\(OP\))?/g;
+    console.log(atUserId);
     const match = atUserId.match(regex);
     return match ? match[0] : undefined;
   }

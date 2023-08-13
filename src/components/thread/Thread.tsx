@@ -33,6 +33,8 @@ interface ThreadProps {
   commentArea: string;
   setCommentArea: React.Dispatch<React.SetStateAction<string>>;
   fetchThread: () => Promise<void>;
+  isReplyFormHovered: boolean;
+  setIsReplyFormHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Thread({
@@ -41,14 +43,18 @@ export default function Thread({
   fetchThread,
   setCommentArea,
   commentArea,
+  isReplyFormHovered,
+  setIsReplyFormHovered,
 }: ThreadProps) {
   const replyRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [replyNotFound, setReplyNotFound] = useState<string[]>([]);
 
   function scrollToReply(replyId: string) {
     let found = false;
+    console.log("hi");
     for (const key in replyRefs.current) {
       if (key === replyId) {
+        console.log(`key${key}`);
         const replyRef = replyRefs.current[key];
         if (replyRef) {
           replyRef.scrollIntoView({ behavior: "smooth" });
@@ -82,7 +88,6 @@ export default function Thread({
   function handleReplyUnhover() {
     setIsReplyHovered(false);
   }
-  const [isReplyFormHovered, setIsReplyFormHovered] = useState(false);
 
   return (
     <>
@@ -149,12 +154,23 @@ export default function Thread({
       )}
       {isReplyFormHovered && (
         <div className="fixed top-20 right-0 bg-gray-700 p-4 rounded-xl mr-2 -z-1">
-          <div className="inline-flex items-center justify-center">
-            <ReplyForm
-              fetchThread={fetchThread}
-              setCommentArea={setCommentArea}
-              commentArea={commentArea}
-            />
+          <div className="flex flex-col">
+            {isReplyFormHovered && (
+              <button
+                type="button"
+                onClick={() => setIsReplyFormHovered(false)}
+                className=" font-bold px-8 py-1 border-2 border-red-500 bg-red-500 self-end hover:bg-red-600  hover:border-white"
+              >
+                X
+              </button>
+            )}
+            <div className="inline-flex items-center justify-center">
+              <ReplyForm
+                fetchThread={fetchThread}
+                setCommentArea={setCommentArea}
+                commentArea={commentArea}
+              />
+            </div>
           </div>
         </div>
       )}

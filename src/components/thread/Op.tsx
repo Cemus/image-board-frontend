@@ -73,7 +73,6 @@ export default function Op({
       );
     }
   };
-  console.log(directReplies);
   return (
     <div className="flex flex-col m-2 items-start">
       <div className="flex flex-row flex-wrap gap-1">

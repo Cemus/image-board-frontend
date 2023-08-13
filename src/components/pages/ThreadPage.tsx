@@ -33,6 +33,7 @@ interface ThreadProps {
 }
 
 export default function ThreadPage() {
+  const [isReplyFormHovered, setIsReplyFormHovered] = useState<boolean>(false);
   const [commentArea, setCommentArea] = useState<string>("");
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -89,6 +90,8 @@ export default function ThreadPage() {
             setCommentArea={setCommentArea}
             commentArea={commentArea}
             fetchThread={fetchThread}
+            isReplyFormHovered={isReplyFormHovered}
+            setIsReplyFormHovered={setIsReplyFormHovered}
           />
         </div>
       </div>
