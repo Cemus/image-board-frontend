@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import Op from "./Op";
 import Reply from "./Reply";
 import ReplyForm from "../post/ReplyForm";
+import ReplyHovered from "./ReplyHovered";
 
 interface ThreadProps {
   thread: {
@@ -51,10 +52,8 @@ export default function Thread({
 
   function scrollToReply(replyId: string) {
     let found = false;
-    console.log("hi");
     for (const key in replyRefs.current) {
       if (key === replyId) {
-        console.log(`key${key}`);
         const replyRef = replyRefs.current[key];
         if (replyRef) {
           replyRef.scrollIntoView({ behavior: "smooth" });
@@ -70,7 +69,6 @@ export default function Thread({
           replyId,
         ]);
       }
-      console.log(replyNotFound);
     }
   }
 
@@ -177,30 +175,32 @@ export default function Thread({
       {isReplyHovered && (
         <div className="hidden md:fixed md:block top-0 right-0 max-w-[50%] z-10">
           {(() => {
-            const hoveredReply = thread?.replies.find(
+            let hoveredReply;
+            hoveredReply = thread?.replies.find(
               (reply) => reply.formatedId === replyHoveredId
             );
+            if (!hoveredReply) {
+              thread?.formatedId === replyHoveredId
+                ? (hoveredReply = thread)
+                : (hoveredReply = null);
+            }
             if (hoveredReply) {
+              const replyHoveredName =
+                "name" in hoveredReply
+                  ? hoveredReply.name
+                  : hoveredReply.opName;
               return (
-                <Reply
+                <ReplyHovered
                   key={hoveredReply._id}
                   id={hoveredReply._id}
                   formatedId={hoveredReply.formatedId}
-                  name={hoveredReply.name}
+                  name={replyHoveredName}
                   comment={hoveredReply.comment}
                   image={hoveredReply.image}
                   imageWidth={hoveredReply.imageWidth}
                   imageHeight={hoveredReply.imageHeight}
                   imageSize={hoveredReply.imageSize}
                   date={hoveredReply.createdAt}
-                  directReplies={hoveredReply.directReplies}
-                  setStartReplyToggle={setStartReplyToggle}
-                  commentArea={commentArea}
-                  setCommentArea={setCommentArea}
-                  scrollToReply={scrollToReply}
-                  handleReplyHover={handleReplyHover}
-                  handleReplyUnhover={handleReplyUnhover}
-                  setIsReplyFormHovered={setIsReplyFormHovered}
                   replyNotFound={replyNotFound}
                 />
               );

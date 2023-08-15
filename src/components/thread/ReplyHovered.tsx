@@ -15,7 +15,8 @@ interface ReplyProps {
   date: string;
   replyNotFound: Array<string | undefined>;
 }
-export default function Reply({
+export default function ReplyHovered({
+  id,
   formatedId,
   name,
   comment,
@@ -35,13 +36,13 @@ export default function Reply({
   }
 
   function getReplyIdFromMatch(atUserId: string): string | undefined {
-    const regex = /(\d{8})/g;
+    const regex = /(\d{8})(\(OP\))?/g;
     const match = atUserId.match(regex);
     return match ? match[0] : undefined;
   }
 
   function makeClickableComment(comment: string) {
-    const regex = /@(\d{8})/g;
+    const regex = /@(\d{8})(\(OP\))?/g;
     const matches = Array.from(comment.matchAll(regex));
     let lastIndex = 0;
     const result = [];
@@ -77,7 +78,7 @@ export default function Reply({
       {hasImage(image) && (
         <div className="flex flex-row">
           <p className="mx-2 ">{">>"}</p>
-          <div className="bg-gray-500 p-1 rounded-sm mr-2">
+          <div className="bg-gray-500 p-1 rounded-sm mb-2 mr-2">
             <div className="flex flex-row gap-1 mx-2">
               <p className=" font-bold">{name}</p>
               <p>{dateFormat(date)}</p>
@@ -86,13 +87,23 @@ export default function Reply({
                 <span className=":hover cursor-pointer hover:text-blue-800">
                   {formatedId}
                 </span>
+                <span className=":hover cursor-pointer hover:text-blue-800">
+                  {}
+                </span>
               </p>
             </div>
             <p className="mx-2">
               File:{" "}
-              <p className="text-blue-900 underline :hover cursor-pointer">
+              <a
+                href={`${config.apiBaseUrl}/${image.substring(
+                  7,
+                  image.length
+                )}`}
+                target="_blank"
+                className="text-blue-900 underline :hover cursor-pointer"
+              >
                 {truncateImageLink(image)}
-              </p>
+              </a>
               {" ("}
               <span>
                 {`${imageSize} KB`}, {imageWidth}
@@ -100,13 +111,16 @@ export default function Reply({
               x<span>{imageHeight}</span>
               {")"}
             </p>
+            <img
+              className="mx-2 float-left  max-w-40 max-h-40 :hover cursor-pointer"
+              loading="lazy"
+              src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+              alt={`image-${id}`}
+            />
+            <p className="m-4 break-all w-auto  sm:min-w-[500px]">
+              {makeClickableComment(comment)}
+            </p>
           </div>
-
-          <img
-            className="mx-2 float-left  max-w-40 max-h-40 :hover cursor-pointer"
-            loading="lazy"
-            src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
-          />
         </div>
       )}
 
