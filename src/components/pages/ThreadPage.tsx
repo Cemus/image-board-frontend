@@ -5,6 +5,8 @@ import NewReplyButton from "../post/NewReplyButton";
 import Thread from "../thread/Thread";
 import { Helmet } from "react-helmet-async";
 
+import config from "../../../backConfig";
+
 interface ThreadProps {
   _id: string;
   formatedId: string;
@@ -43,7 +45,7 @@ export default function ThreadPage() {
   const { id } = useParams();
 
   const fetchThread = async () => {
-    const response = await fetch(`/api/threads/${id}`);
+    const response = await fetch(`${config.apiBaseUrl}/api/threads/${id}`);
     const json = await response.json();
 
     if (response.ok) {

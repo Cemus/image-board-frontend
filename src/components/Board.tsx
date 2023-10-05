@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ThreadThumbnail from "./ThreadThumbnail";
+import config from "../../backConfig";
 
 interface ThreadProps {
   _id: string;
@@ -12,7 +13,7 @@ export default function Board() {
   const [threads, setThreads] = useState<ThreadProps[] | null>(null);
   useEffect(() => {
     const fetchThreads = async () => {
-      const response = await fetch("/api/threads");
+      const response = await fetch(`${config.apiBaseUrl}/api/threads`);
       const json = await response.json();
 
       if (response.ok) {
