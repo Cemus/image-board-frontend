@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
+import config from "../../../backConfig";
 
 interface ThreadFormProps {
   opName: string;
@@ -52,7 +53,7 @@ export default function NewThreadForm() {
       dataToSend.append("image", formData.image);
     }
 
-    fetch(`/api/threads/`, {
+    fetch(`${config.apiBaseUrl}/api/threads/`, {
       method: "POST",
       body: dataToSend,
     })

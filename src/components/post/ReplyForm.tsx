@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import config from "../../../backConfig";
 
 interface ReplyFormProps {
   name: string;
@@ -77,7 +78,7 @@ export default function ReplyForm({
       dataToSend.append("image", formData.image);
     }
 
-    fetch(`/api/threads/${id}`, {
+    fetch(`${config.apiBaseUrl}/api/threads/${id}`, {
       method: "PATCH",
       body: dataToSend,
     })
