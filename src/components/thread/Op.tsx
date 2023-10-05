@@ -1,7 +1,7 @@
 import { useState } from "react";
 import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
-import config from "../../../env";
+import config from "../../../backConfig";
 import QuoteLink from "./QuoteLink";
 
 interface OpProps {

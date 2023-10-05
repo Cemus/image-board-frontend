@@ -1,4 +1,4 @@
-import config from "../../env";
+import config from "../../backConfig";
 import { Link } from "react-router-dom";
 
 interface ThreadProps {

@@ -1,6 +1,6 @@
 import truncateImageLink from "../utils/truncateImageLink";
 import dateFormat from "../utils/dateFormat";
-import config from "../../../env";
+import config from "../../../backConfig";
 import ReplyLinkHovered from "./ReplyLinkHovered";
 
 interface ReplyProps {
