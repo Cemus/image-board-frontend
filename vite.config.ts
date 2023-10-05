@@ -5,7 +5,7 @@ export default defineConfig({
   base: "/image-board-frontend/",
   server: {
     open: true,
-    origin: "https://image-board.cyclic.app/",
+    origin: "https://image-board.cyclic.app",
   },
   plugins: [react()],
 });
