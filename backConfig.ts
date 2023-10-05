@@ -1,5 +1,5 @@
 const config = {
-  apiBaseUrl: "https://tame-pear-dugong-cape.cyclic.cloud",
+  apiBaseUrl: "https://wandering-raincoat-bat.cyclic.app",
 };
 
 export default config;

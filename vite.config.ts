@@ -5,7 +5,7 @@ export default defineConfig({
   base: "/image-board-frontend/",
   server: {
     open: true,
-    origin: "https://tame-pear-dugong-cape.cyclic.cloud",
+    origin: "https://wandering-raincoat-bat.cyclic.app",
   },
   plugins: [react()],
 });
