@@ -1,5 +1,5 @@
 const config = {
-  apiBaseUrl: "https://wandering-raincoat-bat.cyclic.app",
+  apiBaseUrl: "https://image-board.cyclic.app/",
 };
 
 export default config;
