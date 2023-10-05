@@ -4,14 +4,8 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/image-board-frontend/",
   server: {
-    proxy: {
-      "/api": {
-        target: "https://tame-pear-dugong-cape.cyclic.cloud/",
-        changeOrigin: true,
-        secure: false,
-        ws: true,
-      },
-    },
+    open: true,
+    origin: "https://tame-pear-dugong-cape.cyclic.cloud",
   },
   plugins: [react()],
 });
