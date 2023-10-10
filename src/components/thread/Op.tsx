@@ -51,6 +51,7 @@ export default function Op({
 }: OpProps) {
   const [isImageHovered, setIsImageHovered] = useState(false);
   const [isImageClicked, setIsImageClicked] = useState(false);
+  const imageUrl = `${config.apiBaseUrl}/api/threads/images/${image}`;
   const handleMouseEnter = () => {
     setIsImageHovered(true);
   };
@@ -106,7 +107,7 @@ export default function Op({
       <p>
         File:{" "}
         <a
-          href={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+          href={imageUrl}
           target="_blank"
           className="text-blue-900 underline :hover cursor-pointer"
         >
@@ -127,7 +128,7 @@ export default function Op({
             onClick={handleImageClick}
             className="mx-2 float-left  max-w-40 max-h-40 :hover cursor-pointer"
             loading="lazy"
-            src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+            src={imageUrl}
             alt={`image-${id}`}
           />
         )}
@@ -135,7 +136,7 @@ export default function Op({
           <img
             onClick={handleImageClick}
             className="mx-2 float-left  max-w-[80%] :hover cursor-pointer"
-            src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+            src={imageUrl}
             alt={`image-${id}`}
           />
         )}
@@ -143,7 +144,7 @@ export default function Op({
           <img
             className="hidden md:fixed  md:block top-0 right-0 max-w-[50%]"
             loading="lazy"
-            src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+            src={imageUrl}
             alt={`image-${id}`}
           />
         )}

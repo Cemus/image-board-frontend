@@ -14,15 +14,14 @@ export default function ThreadThumbnail({
   comment,
   image,
 }: ThreadProps) {
-  /*   const imageUrl = image.substring(7, image.length); */
-  console.log(`${config.apiBaseUrl}/api/threads/images/${image}`);
+  const imageUrl = `${config.apiBaseUrl}/api/threads/images/${image}`;
   return (
     <div className="flex flex-col items-center gap-1 p-2">
       <Link className="flex items-center justify-center" to={`/thread/${id}`}>
         <img
           className=" cursor-pointer rounded-sm max-h-96"
           loading="lazy"
-          src={`${config.apiBaseUrl}/api/threads/images/${image}`}
+          src={imageUrl}
           alt={`thumbnail-${id}`}
         />
       </Link>
