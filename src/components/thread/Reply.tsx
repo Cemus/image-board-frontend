@@ -55,6 +55,7 @@ export default function Reply({
       return false;
     }
   }
+  const imageUrl = `${config.apiBaseUrl}/api/threads/images/${image}`;
   const [isImageHovered, setIsImageHovered] = useState(false);
   const [isImageClicked, setIsImageClicked] = useState(false);
   const handleMouseEnter = () => {
@@ -145,10 +146,7 @@ export default function Reply({
             <p className="mx-2">
               File:{" "}
               <a
-                href={`${config.apiBaseUrl}/${image.substring(
-                  7,
-                  image.length
-                )}`}
+                href={imageUrl}
                 target="_blank"
                 className="text-blue-900 underline :hover cursor-pointer"
               >
@@ -168,7 +166,7 @@ export default function Reply({
                 onClick={handleImageClick}
                 className="mx-2 float-left  max-w-40 max-h-40 :hover cursor-pointer"
                 loading="lazy"
-                src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+                src={imageUrl}
                 alt={`image-${id}`}
               />
             )}
@@ -176,7 +174,7 @@ export default function Reply({
               <img
                 onClick={handleImageClick}
                 className="mx-2 float-left  max-w-[80%] :hover cursor-pointer"
-                src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+                src={imageUrl}
                 alt={`image-${id}`}
               />
             )}
@@ -188,7 +186,7 @@ export default function Reply({
             <img
               className="hidden md:fixed  md:block top-0 right-0 max-w-[50%]"
               loading="lazy"
-              src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+              src={imageUrl}
               alt={`image-${id}`}
             />
           )}

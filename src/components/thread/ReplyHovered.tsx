@@ -34,7 +34,7 @@ export default function ReplyHovered({
       return false;
     }
   }
-
+  const imageUrl = `${config.apiBaseUrl}/api/threads/images/${image}`;
   function getReplyIdFromMatch(atUserId: string): string | undefined {
     const regex = /(\d{8})(\(OP\))?/g;
     const match = atUserId.match(regex);
@@ -114,7 +114,7 @@ export default function ReplyHovered({
             <img
               className="mx-2 float-left  max-w-40 max-h-40 :hover cursor-pointer"
               loading="lazy"
-              src={`${config.apiBaseUrl}/${image.substring(7, image.length)}`}
+              src={imageUrl}
               alt={`image-${id}`}
             />
             <p className="m-4 break-all w-auto  sm:min-w-[500px]">
