@@ -63,7 +63,9 @@ export default function ThreadPage() {
     <>
       <Helmet>
         <title className="text-overflow-ellipsis">
-          {`${thread?.subject} - ${thread?.comment}`}
+          {thread
+            ? `${thread.subject} - ${thread.comment}`
+            : "Image-Board - Share your visual content."}
         </title>
         <meta
           name="description"
