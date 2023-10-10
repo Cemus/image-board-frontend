@@ -15,6 +15,7 @@ export default function ThreadThumbnail({
   image,
 }: ThreadProps) {
   /*   const imageUrl = image.substring(7, image.length); */
+  console.log(`${config.apiBaseUrl}/api/${image}`);
   return (
     <div className="flex flex-col items-center gap-1 p-2">
       <Link className="flex items-center justify-center" to={`/thread/${id}`}>
