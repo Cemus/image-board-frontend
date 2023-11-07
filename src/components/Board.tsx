@@ -24,7 +24,7 @@ export default function Board() {
   }, []);
   return (
     <>
-      {threads && (
+      {threads ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 items-start bg-gray-900">
           {threads.map((thread) => (
             <ThreadThumbnail
@@ -36,6 +36,8 @@ export default function Board() {
             />
           ))}
         </div>
+      ) : (
+        <p className="text-center">Please wait...</p>
       )}
       {!threads ||
         (threads.length === 0 && (
